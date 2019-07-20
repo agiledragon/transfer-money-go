@@ -15,8 +15,3 @@ func (this *WithdrawMoneyService) Exec(accountId string, amount uint) {
 	account := this.repo.Get(accountId)
 	account.MoneyCollector.Withdraw(amount)
 }
-
-func (this *WithdrawMoneyService) GetAmount(accountId string) uint {
-	account := this.repo.Get(accountId)
-	return account.MoneyCollector.GetAmount()
-}

@@ -3,14 +3,18 @@ package service
 import "github.com/agiledragon/transfer-money-go/domain/service"
 
 type AccountApi struct {
-	accountService       *service.AccountService
-	withdrawMoneyService *service.WithdrawMoneyService
+	accountService              *service.AccountService
+	withdrawMoneyService        *service.WithdrawMoneyService
+	transferMoneyToLocalService *service.TransferMoneyToLocalService
+	transferMoneyService        *service.TransferMoneyService
 }
 
 func NewAccountApi() *AccountApi {
 	api := &AccountApi{
-		accountService:       service.NewAccountService(),
-		withdrawMoneyService: service.NewWithdrawMoneyService(),
+		accountService:              service.NewAccountService(),
+		withdrawMoneyService:        service.NewWithdrawMoneyService(),
+		transferMoneyToLocalService: service.NewTransferMoneyToLocalService(),
+		transferMoneyService:        service.NewTransferMoneyService(),
 	}
 	return api
 }
@@ -34,5 +38,9 @@ func (this *AccountApi) WithdrawMoney(accountId string, amount uint) {
 }
 
 func (this *AccountApi) GetAmount(accountId string) uint {
-	return this.withdrawMoneyService.GetAmount(accountId)
+	return this.transferMoneyService.GetAmount(accountId)
+}
+
+func (this *AccountApi) TransferMoneyToLocal(fromId, toId string, amount uint) {
+	this.transferMoneyToLocalService.Exec(fromId, toId, amount)
 }

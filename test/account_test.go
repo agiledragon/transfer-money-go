@@ -44,10 +44,22 @@ func TestAccount(t *testing.T) {
 		jimAccountId := api.CreateAccount(jimPhoneNumber, jimInitialAmount)
 		defer api.DestroyAccount(jimAccountId)
 
+		lucyPhoneNumber := "18888888888"
+		lucyInitialAmount := uint(5000)
+		lucyAccountId := api.CreateAccount(lucyPhoneNumber, lucyInitialAmount)
+		defer api.DestroyAccount(lucyAccountId)
+
 		Convey("withdraw money", func() {
 			const AMOUNT = 1000
 			api.WithdrawMoney(jimAccountId, AMOUNT)
 			So(api.GetAmount(jimAccountId), ShouldEqual, jimInitialAmount-AMOUNT)
+		})
+
+		Convey("transfer money to local", func() {
+			const AMOUNT = 1000
+			api.TransferMoneyToLocal(jimAccountId, lucyAccountId, AMOUNT)
+			So(api.GetAmount(jimAccountId), ShouldEqual, jimInitialAmount-AMOUNT)
+			So(api.GetAmount(lucyAccountId), ShouldEqual, lucyInitialAmount+AMOUNT)
 		})
 	})
 }

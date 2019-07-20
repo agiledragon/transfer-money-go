@@ -8,6 +8,8 @@ type Account struct {
 	balance        balance
 	phone          phone
 	MoneyCollector MoneyCollector
+	MoneySrc       MoneySrc
+	MoneyDest      MoneyDest
 }
 
 func NewAccount(accountId, phoneNumber string, amount uint) *Account {
@@ -30,6 +32,18 @@ func NewAccount(accountId, phoneNumber string, amount uint) *Account {
 		Role:    base.Role{},
 		balance: &account.balance,
 		phone:   &account.phone,
+	}
+	account.MoneySrc = MoneySrc{
+		Role:        base.Role{},
+		accountInfo: &account.accountInfo,
+		balance:     &account.balance,
+		phone:       &account.phone,
+	}
+	account.MoneyDest = MoneyDest{
+		Role:        base.Role{},
+		accountInfo: &account.accountInfo,
+		balance:     &account.balance,
+		phone:       &account.phone,
 	}
 	return account
 }
