@@ -7,8 +7,9 @@ import (
 
 type RemoteAccount struct {
 	base.AggregateRoot
-	accountInfo    common_role.AccountInfo
-	MoneyDest      common_role.MoneyDest
+	accountInfo common_role.AccountInfo
+	MoneySrc    common_role.MoneySrc
+	MoneyDest   common_role.MoneyDest
 }
 
 func New(accountId string) *RemoteAccount {
@@ -17,6 +18,10 @@ func New(accountId string) *RemoteAccount {
 		accountInfo: common_role.AccountInfo{
 			Entity: base.NewEntity(accountId),
 		},
+	}
+	account.MoneySrc = &RemoteMoneySrc{
+		Role:        base.Role{},
+		accountInfo: &account.accountInfo,
 	}
 	account.MoneyDest = &RemoteMoneyDest{
 		Role:        base.Role{},

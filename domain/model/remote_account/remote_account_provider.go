@@ -12,3 +12,7 @@ func waitProtocolResp() Response {
 	ok := Response{false}
 	return ok
 }
+
+func sendProtocolResponse(resp Response) {
+
+}

@@ -3,20 +3,22 @@ package service
 import "github.com/agiledragon/transfer-money-go/domain/service"
 
 type AccountApi struct {
-	accountService              *service.AccountService
-	withdrawMoneyService        *service.WithdrawMoneyService
-	transferMoneyToLocalService *service.TransferMoneyToLocalService
-	transferMoneyService        *service.TransferMoneyService
-	transferMoneyToRemoteService *service.TransferMoneyToRemoteService
+	accountService                 *service.AccountService
+	withdrawMoneyService           *service.WithdrawMoneyService
+	transferMoneyToLocalService    *service.TransferMoneyToLocalService
+	transferMoneyService           *service.TransferMoneyService
+	transferMoneyToRemoteService   *service.TransferMoneyToRemoteService
+	transferMoneyFromRemoteService *service.TransferMoneyFromRemoteService
 }
 
 func NewAccountApi() *AccountApi {
 	api := &AccountApi{
-		accountService:              service.NewAccountService(),
-		withdrawMoneyService:        service.NewWithdrawMoneyService(),
-		transferMoneyToLocalService: service.NewTransferMoneyToLocalService(),
-		transferMoneyService:        service.NewTransferMoneyService(),
-		transferMoneyToRemoteService:service.NewTransferMoneyToRemoteService(),
+		accountService:                 service.NewAccountService(),
+		withdrawMoneyService:           service.NewWithdrawMoneyService(),
+		transferMoneyToLocalService:    service.NewTransferMoneyToLocalService(),
+		transferMoneyService:           service.NewTransferMoneyService(),
+		transferMoneyToRemoteService:   service.NewTransferMoneyToRemoteService(),
+		transferMoneyFromRemoteService: service.NewTransferMoneyFromRemoteService(),
 	}
 	return api
 }
@@ -49,4 +51,8 @@ func (this *AccountApi) TransferMoneyToLocal(fromId, toId string, amount uint) {
 
 func (this *AccountApi) TransferMoneyToRemote(fromId, toId string, amount uint) {
 	this.transferMoneyToRemoteService.Exec(fromId, toId, amount)
+}
+
+func (this *AccountApi) TransferMoneyFromRemote(fromId, toId string, amount uint) {
+	this.transferMoneyFromRemoteService.Exec(fromId, toId, amount)
 }

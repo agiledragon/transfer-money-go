@@ -9,7 +9,7 @@ type AccountService struct {
 }
 
 func NewAccountService() *AccountService {
-	s := &AccountService{repo:local_account.GetLocalAccountRepo()}
+	s := &AccountService{repo: local_account.GetLocalAccountRepo()}
 	return s
 }
 

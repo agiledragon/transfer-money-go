@@ -7,7 +7,7 @@ type TransferMoneyService struct {
 }
 
 func NewTransferMoneyService() *TransferMoneyService {
-	s := &TransferMoneyService{repo:local_account.GetLocalAccountRepo()}
+	s := &TransferMoneyService{repo: local_account.GetLocalAccountRepo()}
 	return s
 }
 

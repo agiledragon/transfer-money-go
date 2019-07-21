@@ -10,7 +10,7 @@ type TransferMoneyToRemoteService struct {
 }
 
 func NewTransferMoneyToRemoteService() *TransferMoneyToRemoteService {
-	s := &TransferMoneyToRemoteService{repo:local_account.GetLocalAccountRepo()}
+	s := &TransferMoneyToRemoteService{repo: local_account.GetLocalAccountRepo()}
 	return s
 }
 

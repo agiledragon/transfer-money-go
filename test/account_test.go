@@ -66,5 +66,10 @@ func TestAccount(t *testing.T) {
 			api.TransferMoneyToRemote(jimAccountId, lucyAccountId, AMOUNT)
 			So(api.GetAmount(jimAccountId), ShouldEqual, jimInitialAmount-AMOUNT)
 		})
+		Convey("transfer money from remote", func() {
+			const AMOUNT = 1000
+			api.TransferMoneyFromRemote(lucyAccountId, jimAccountId, AMOUNT)
+			So(api.GetAmount(jimAccountId), ShouldEqual, jimInitialAmount+AMOUNT)
+		})
 	})
 }

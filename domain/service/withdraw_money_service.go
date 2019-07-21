@@ -7,7 +7,7 @@ type WithdrawMoneyService struct {
 }
 
 func NewWithdrawMoneyService() *WithdrawMoneyService {
-	s := &WithdrawMoneyService{repo:local_account.GetLocalAccountRepo()}
+	s := &WithdrawMoneyService{repo: local_account.GetLocalAccountRepo()}
 	return s
 }
 
