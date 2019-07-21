@@ -1,4 +1,4 @@
-package infra
+package repositories
 
 import (
 	"github.com/agiledragon/transfer-money-go/domain/model/local_account"
