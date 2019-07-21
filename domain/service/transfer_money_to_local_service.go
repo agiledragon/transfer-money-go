@@ -1,13 +1,13 @@
 package service
 
-import "github.com/agiledragon/transfer-money-go/domain/model/account"
+import "github.com/agiledragon/transfer-money-go/domain/model/local_account"
 
 type TransferMoneyToLocalService struct {
-	repo account.AccountRepo
+	repo local_account.LocalAccountRepo
 }
 
 func NewTransferMoneyToLocalService() *TransferMoneyToLocalService {
-	s := &TransferMoneyToLocalService{repo: account.GetAccountRepo()}
+	s := &TransferMoneyToLocalService{repo:local_account.GetLocalAccountRepo()}
 	return s
 }
 

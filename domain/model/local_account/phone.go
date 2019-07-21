@@ -1,18 +1,15 @@
-package account
+package local_account
 
 import (
 	"fmt"
 	"github.com/agiledragon/transfer-money-go/domain/model/base"
+	"github.com/agiledragon/transfer-money-go/domain/model/common_role"
 )
 
 type phone struct {
 	base.ValueObject
-	accountInfo *accountInfo
+	accountInfo *common_role.AccountInfo
 	phoneNumber string
-}
-
-func newPhone(info *accountInfo, phoneNumber string) *phone {
-	return &phone{accountInfo: info, phoneNumber: phoneNumber}
 }
 
 func (this *phone) sendWithdrawMsg(amount uint) {

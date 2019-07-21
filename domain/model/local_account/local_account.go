@@ -1,21 +1,24 @@
-package account
+package local_account
 
-import "github.com/agiledragon/transfer-money-go/domain/model/base"
+import (
+	"github.com/agiledragon/transfer-money-go/domain/model/base"
+	"github.com/agiledragon/transfer-money-go/domain/model/common_role"
+)
 
-type Account struct {
+type LocalAccount struct {
 	base.AggregateRoot
-	accountInfo    accountInfo
+	accountInfo    common_role.AccountInfo
 	balance        balance
 	phone          phone
 	MoneyCollector MoneyCollector
-	MoneySrc       MoneySrc
-	MoneyDest      MoneyDest
+	MoneySrc       common_role.MoneySrc
+	MoneyDest      common_role.MoneyDest
 }
 
-func NewAccount(accountId, phoneNumber string, amount uint) *Account {
-	account := &Account{
+func New(accountId, phoneNumber string, amount uint) *LocalAccount {
+	account := &LocalAccount{
 		AggregateRoot: base.NewAggregateRoot(accountId),
-		accountInfo: accountInfo{
+		accountInfo: common_role.AccountInfo{
 			Entity: base.NewEntity(accountId),
 		},
 		balance: balance{
@@ -33,13 +36,13 @@ func NewAccount(accountId, phoneNumber string, amount uint) *Account {
 		balance: &account.balance,
 		phone:   &account.phone,
 	}
-	account.MoneySrc = MoneySrc{
+	account.MoneySrc = &LocalMoneySrc{
 		Role:        base.Role{},
 		accountInfo: &account.accountInfo,
 		balance:     &account.balance,
 		phone:       &account.phone,
 	}
-	account.MoneyDest = MoneyDest{
+	account.MoneyDest = &LocalMoneyDest{
 		Role:        base.Role{},
 		accountInfo: &account.accountInfo,
 		balance:     &account.balance,

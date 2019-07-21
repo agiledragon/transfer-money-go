@@ -7,6 +7,7 @@ type AccountApi struct {
 	withdrawMoneyService        *service.WithdrawMoneyService
 	transferMoneyToLocalService *service.TransferMoneyToLocalService
 	transferMoneyService        *service.TransferMoneyService
+	transferMoneyToRemoteService *service.TransferMoneyToRemoteService
 }
 
 func NewAccountApi() *AccountApi {
@@ -15,6 +16,7 @@ func NewAccountApi() *AccountApi {
 		withdrawMoneyService:        service.NewWithdrawMoneyService(),
 		transferMoneyToLocalService: service.NewTransferMoneyToLocalService(),
 		transferMoneyService:        service.NewTransferMoneyService(),
+		transferMoneyToRemoteService:service.NewTransferMoneyToRemoteService(),
 	}
 	return api
 }
@@ -43,4 +45,8 @@ func (this *AccountApi) GetAmount(accountId string) uint {
 
 func (this *AccountApi) TransferMoneyToLocal(fromId, toId string, amount uint) {
 	this.transferMoneyToLocalService.Exec(fromId, toId, amount)
+}
+
+func (this *AccountApi) TransferMoneyToRemote(fromId, toId string, amount uint) {
+	this.transferMoneyToRemoteService.Exec(fromId, toId, amount)
 }

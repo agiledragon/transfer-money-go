@@ -1,4 +1,4 @@
-package account
+package local_account
 
 import "github.com/agiledragon/transfer-money-go/domain/model/base"
 

@@ -2,25 +2,25 @@ package test
 
 import (
 	"github.com/agiledragon/transfer-money-go/app/service"
-	"github.com/agiledragon/transfer-money-go/domain/model/account"
+	"github.com/agiledragon/transfer-money-go/domain/model/local_account"
 	. "github.com/smartystreets/goconvey/convey"
 	"testing"
 )
 
 type FakeAccountRepo struct {
-	accounts map[string]*account.Account
+	accounts map[string]*local_account.LocalAccount
 }
 
-func (this *FakeAccountRepo) Add(account *account.Account) {
+func (this *FakeAccountRepo) Add(account *local_account.LocalAccount) {
 	this.accounts[account.Id()] = account
 }
 
-func (this *FakeAccountRepo) Get(accountId string) *account.Account {
+func (this *FakeAccountRepo) Get(accountId string) *local_account.LocalAccount {
 	return this.accounts[accountId]
 }
 
 //simulate dbs operation
-func (this *FakeAccountRepo) Update(account *account.Account) {
+func (this *FakeAccountRepo) Update(account *local_account.LocalAccount) {
 	for k := range this.accounts {
 		if k == account.Id() {
 			delete(this.accounts, k)
@@ -34,8 +34,8 @@ func (this *FakeAccountRepo) Remove(accountId string) {
 }
 
 func TestAccount(t *testing.T) {
-	repo := &FakeAccountRepo{make(map[string]*account.Account)}
-	account.SetAccountRepo(repo)
+	repo := &FakeAccountRepo{make(map[string]*local_account.LocalAccount)}
+	local_account.SetLocalAccountRepo(repo)
 	api := service.NewAccountApi()
 
 	Convey("TestAccount", t, func() {
@@ -60,6 +60,11 @@ func TestAccount(t *testing.T) {
 			api.TransferMoneyToLocal(jimAccountId, lucyAccountId, AMOUNT)
 			So(api.GetAmount(jimAccountId), ShouldEqual, jimInitialAmount-AMOUNT)
 			So(api.GetAmount(lucyAccountId), ShouldEqual, lucyInitialAmount+AMOUNT)
+		})
+		Convey("transfer money to remote", func() {
+			const AMOUNT = 1000
+			api.TransferMoneyToRemote(jimAccountId, lucyAccountId, AMOUNT)
+			So(api.GetAmount(jimAccountId), ShouldEqual, jimInitialAmount-AMOUNT)
 		})
 	})
 }
