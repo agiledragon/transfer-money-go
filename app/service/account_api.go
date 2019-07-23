@@ -34,7 +34,7 @@ func (this *AccountApi) CreateAccount(phoneNumber string, initialAmount uint) st
 }
 
 func (this *AccountApi) DestroyAccount(accountId string) {
-	this.accountService.DestoryAccount(accountId)
+	this.accountService.DestroyAccount(accountId)
 }
 
 func (this *AccountApi) WithdrawMoney(accountId string, amount uint) {

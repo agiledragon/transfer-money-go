@@ -19,6 +19,6 @@ func (this *AccountService) CreateAccount(accountId, phoneNumber string, amount 
 	return a
 }
 
-func (this *AccountService) DestoryAccount(accountId string) {
+func (this *AccountService) DestroyAccount(accountId string) {
 	this.repo.Remove(accountId)
 }
