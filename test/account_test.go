@@ -38,38 +38,35 @@ func TestAccount(t *testing.T) {
 	local_account.SetLocalAccountRepo(repo)
 	api := service.NewAccountApi()
 
-	Convey("TestAccount", t, func() {
-		jimPhoneNumber := "19999999999"
-		jimInitialAmount := uint(10000)
-		jimAccountId := api.CreateAccount(jimPhoneNumber, jimInitialAmount)
-		defer api.DestroyAccount(jimAccountId)
+	const JIM_PHONE_NUMBER = "19999999999"
+	const JIM_INITIAL_AMOUNT = 10000
+	const LUCY_PHONE_NUMBER = "18888888888"
+	const LUCY_INITIAL_AMOUNT = 5000
+	const AMOUNT = 1000
 
-		lucyPhoneNumber := "18888888888"
-		lucyInitialAmount := uint(5000)
-		lucyAccountId := api.CreateAccount(lucyPhoneNumber, lucyInitialAmount)
+	Convey("TestAccount", t, func() {
+		jimAccountId := api.CreateAccount(JIM_PHONE_NUMBER, JIM_INITIAL_AMOUNT)
+		defer api.DestroyAccount(jimAccountId)
+		lucyAccountId := api.CreateAccount(LUCY_PHONE_NUMBER, LUCY_INITIAL_AMOUNT)
 		defer api.DestroyAccount(lucyAccountId)
 
 		Convey("withdraw money", func() {
-			const AMOUNT = 1000
 			api.WithdrawMoney(jimAccountId, AMOUNT)
-			So(api.GetAmount(jimAccountId), ShouldEqual, jimInitialAmount-AMOUNT)
+			So(api.GetAmount(jimAccountId), ShouldEqual, JIM_INITIAL_AMOUNT-AMOUNT)
 		})
 
 		Convey("transfer money to local", func() {
-			const AMOUNT = 1000
 			api.TransferMoneyToLocal(jimAccountId, lucyAccountId, AMOUNT)
-			So(api.GetAmount(jimAccountId), ShouldEqual, jimInitialAmount-AMOUNT)
-			So(api.GetAmount(lucyAccountId), ShouldEqual, lucyInitialAmount+AMOUNT)
+			So(api.GetAmount(jimAccountId), ShouldEqual, JIM_INITIAL_AMOUNT-AMOUNT)
+			So(api.GetAmount(lucyAccountId), ShouldEqual, LUCY_INITIAL_AMOUNT+AMOUNT)
 		})
 		Convey("transfer money to remote", func() {
-			const AMOUNT = 1000
 			api.TransferMoneyToRemote(jimAccountId, lucyAccountId, AMOUNT)
-			So(api.GetAmount(jimAccountId), ShouldEqual, jimInitialAmount-AMOUNT)
+			So(api.GetAmount(jimAccountId), ShouldEqual, JIM_INITIAL_AMOUNT-AMOUNT)
 		})
 		Convey("transfer money from remote", func() {
-			const AMOUNT = 1000
 			api.TransferMoneyFromRemote(lucyAccountId, jimAccountId, AMOUNT)
-			So(api.GetAmount(jimAccountId), ShouldEqual, jimInitialAmount+AMOUNT)
+			So(api.GetAmount(jimAccountId), ShouldEqual, JIM_INITIAL_AMOUNT+AMOUNT)
 		})
 	})
 }

@@ -13,6 +13,6 @@ func waitProtocolResp() Response {
 	return ok
 }
 
-func sendProtocolResponse(resp Response) {
+func sendProtocolResp(resp Response) {
 
 }

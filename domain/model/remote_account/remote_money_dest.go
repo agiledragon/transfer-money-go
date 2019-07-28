@@ -12,8 +12,8 @@ type RemoteMoneyDest struct {
 
 func (this *RemoteMoneyDest) TransferMoneyFrom(fromId string, amount uint) {
 	sendTransferToProtocolMsg(fromId, this.accountInfo.Id(), amount)
-	resp := waitProtocolResp()
-	if resp.isFailed {
+	ok := waitProtocolResp()
+	if ok.isFailed {
 		panic("transfer money to remote fail")
 	}
 }

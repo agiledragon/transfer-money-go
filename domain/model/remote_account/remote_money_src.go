@@ -13,5 +13,5 @@ type RemoteMoneySrc struct {
 func (this *RemoteMoneySrc) TransferMoneyTo(dest common_role.MoneyDest, amount uint) {
 	dest.TransferMoneyFrom(this.accountInfo.Id(), amount)
 	ok := Response{false}
-	sendProtocolResponse(ok)
+	sendProtocolResp(ok)
 }
